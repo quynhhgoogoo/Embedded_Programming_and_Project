@@ -39,7 +39,7 @@ int str2lower(char *s){
 }
 
 /*remove occurence number and return new string length*/
-int str_strip_number(char *s){
+int str_strip_numbers(char *s){
 	int i = 0;
 	int len = my_strlen(s);
 	while(*(s+i)!='\0'){
@@ -92,10 +92,3 @@ char *strdupl(char *s){
 	}
 	*d = '\0';
 }
-
-
-
-
-
-
-
