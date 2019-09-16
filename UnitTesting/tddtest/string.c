@@ -4,11 +4,11 @@
 
 /*return length of string*/
 int my_strlen(char *s){
-	int c=0;
-	while(c!='\0'){
-		c++;
+	int len=0;
+	while(len!='\0'){
+		len++;
 	}
-	return c
+	return len;
 }
 
 /*return number of uppercase character*/
@@ -29,7 +29,7 @@ int str2upper(char *s){
 int str2lower(char *s){
 	int c =0;
 	int num = 0;
-	while(*(s+c)!='\0''){
+	while(*(s+c)!='\0'){
 		if(*(s+c) >= 'A' && *(s+c)<='Z'){
 			*(s+c)=*(s+c)+32;
 			num++;
@@ -40,23 +40,20 @@ int str2lower(char *s){
 
 /*remove occurence number and return new string length*/
 int str_strip_number(char *s){
-	char *oldstr = s;
-	char *newstr = t;
-	int k = 0;
-
-	while(k!='\0'){
-		if(*(s+k) >= 0 && *(s+k)<=9){
-			newlen++;
-			continue;
+	int i = 0;
+	int len = my_strlen(s);
+	while(*(s+i)!='\0'){
+		if(*(s+i)>=0 && *(s+i)<=9){
+			i++;
+			while(i<len){
+				*(s+i)=*(s+i+1);
+			}
 		}
-		*(t+k)=*(s+k);
+		return i;
 	}
-	*(t+k+1)='\0'
-	int newlen = my_str(len);
-	return newlen;
 }
 
-/*compare two strings together*/
+/*copy two strings together*/
 void mystrcpy(char *s, char *d){
 	while(*s){
 		*d = *s;
@@ -65,5 +62,40 @@ void mystrcpy(char *s, char *d){
 	}
 	*d='\0';
 }
+
+/*compare two strings together and returns place of first different character*/
+int mystrcmp(char*s, char *d){
+	int i = 0;
+	while(*(s+i)==*(d+i)){
+		i++;
+
+		if(*(s+i)=='\0' || *(d+i) == '\0'){
+			break;
+		}
+	}
+	if(*(s+i)==*(d+i))
+		return 0;
+	if(*(s+i)<*(d+i))
+		return -1;
+	else
+		return 1;
+
+}
+
+/*creaes duplicated string*/
+char *strdupl(char *s){
+	char *d = (char*)malloc(sizeof(char*)*100);
+	while(*s){
+		*d = *s;
+		d++;
+		s++;
+	}
+	*d = '\0';
+}
+
+
+
+
+
 
 
