@@ -3,7 +3,7 @@
 #include "math.h"
 
 /*string len*/
-TEST(MytestCategory1,MyTest1)
+TEST(StringLen,Normal)
 {
 	char *s="testing";
 	int len;
@@ -12,7 +12,7 @@ TEST(MytestCategory1,MyTest1)
     	EXPECT_EQ(7,len);
 }
 
-TEST(MytestCategory1,MyTest2)
+TEST(StringLen,EmptyString)
 {
 	char *s="";
 	int len;
@@ -21,7 +21,7 @@ TEST(MytestCategory1,MyTest2)
     	EXPECT_EQ(0,len);
 }
 
-TEST(MytestCategory1,MyTest3)
+TEST(StringLen,NullString)
 {
 	char *s=NULL;
 	int len;
@@ -30,7 +30,7 @@ TEST(MytestCategory1,MyTest3)
     	EXPECT_EQ(-1,len);
 }
 
-TEST(MytestCategory1,MyTest4)
+TEST(StringLen,SpecialChar)
 {
 	char *s="###116";
 	int len;
@@ -39,7 +39,7 @@ TEST(MytestCategory1,MyTest4)
     	EXPECT_EQ(6,len);
 }
 
-TEST(MytestCategory1,MyTest5)
+TEST(StringLen,NotDefined)
 {
 	char *s;
 	int len;
@@ -49,7 +49,7 @@ TEST(MytestCategory1,MyTest5)
 }
 /*returns the number of changed uppercase character*/
 
-TEST(MytestCategory2,MyTest6)
+TEST(UpperCase,Normal1)
 {
 	char *s="Testi";
 	int result;
@@ -58,7 +58,7 @@ TEST(MytestCategory2,MyTest6)
 	EXPECT_EQ(4,result);
 }
 
-TEST(MytestCategory2,MyTest7)
+TEST(UpperCase,Normal2)
 {
 	char *s="testI";
 	int result;
@@ -67,7 +67,7 @@ TEST(MytestCategory2,MyTest7)
     	EXPECT_EQ(4,result);
 }
 
-TEST(MytestCategory2,MyTest8)
+TEST(UpperCase,Normal3)
 {
 	char *s="testi";
 	int result;
@@ -76,16 +76,7 @@ TEST(MytestCategory2,MyTest8)
     	EXPECT_EQ(5,result);
 }
 
-TEST(MytestCategory2,MyTest9)
-{
-	char *s="testi";
-	int result;
-
-	result=str2upper(s);
-    	EXPECT_EQ(5,result);
-}
-
-TEST(MytestCategory2,MyTest10)
+TEST(UpperCase,Normal4)
 {
 	char *s="TESTI";
 	int result;
@@ -94,7 +85,7 @@ TEST(MytestCategory2,MyTest10)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory2,MyTest11)
+TEST(UpperCase,SpecialChar)
 {
 	char *s="##0273465*^§";
 	int result;
@@ -103,7 +94,7 @@ TEST(MytestCategory2,MyTest11)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory2,MyTest12)
+TEST(UpperCase,EmptyString)
 {
 	char *s="";
 	int result;
@@ -112,7 +103,7 @@ TEST(MytestCategory2,MyTest12)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory2,MyTest13)
+TEST(UpperCase,NotDefined)
 {
 	char *s;
 	int result;
@@ -121,7 +112,7 @@ TEST(MytestCategory2,MyTest13)
     	EXPECT_EQ(-1,result);
 }
 
-TEST(MytestCategory2,MyTest14)
+TEST(UpperCase,NullString)
 {
 	char *s=NULL;
 	int result;
@@ -132,7 +123,7 @@ TEST(MytestCategory2,MyTest14)
 
 
 /*return number of changed lower character*/
-TEST(MytestCategory3,MyTest15)
+TEST(LowerCase,Normal1)
 {
 	char *s="TESTI";
 	int result;
@@ -141,7 +132,7 @@ TEST(MytestCategory3,MyTest15)
 	EXPECT_EQ(5,result);
 }
 
-TEST(MytestCategory3,MyTest16)
+TEST(LowerCase,SpecialChar)
 {
 	char *s="%TESTI#";
 	int result;
@@ -150,7 +141,7 @@ TEST(MytestCategory3,MyTest16)
     	EXPECT_EQ(5,result);
 }
 
-TEST(MytestCategory3,MyTest17)
+TEST(LowerCase,Normal2)
 {
 	char *s="testi";
 	int result;
@@ -159,7 +150,7 @@ TEST(MytestCategory3,MyTest17)
     	EXPECT_EQ(5,result);
 }
 
-TEST(MytestCategory3,MyTest18)
+TEST(LowerCase,Normal3)
 {
 	char *s="teSti";
 	int result;
@@ -168,7 +159,7 @@ TEST(MytestCategory3,MyTest18)
     	EXPECT_EQ(4,result);
 }
 
-TEST(MytestCategory3,MyTest19)
+TEST(LowerCase,EmptyString)
 {
 	char *s="";
 	int result;
@@ -177,7 +168,7 @@ TEST(MytestCategory3,MyTest19)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory3,MyTest20)
+TEST(LowerCase,NullString)
 {
 	char *s=NULL;
 	int result;
@@ -187,7 +178,7 @@ TEST(MytestCategory3,MyTest20)
 }
 
 /*remove numbers and returns new length of string*/
-TEST(MytestCategory4,MyTest21)
+TEST(RemoveNumbers,Normal1)
 {
 	char *s="test1ng23";
 	int result;
@@ -196,7 +187,7 @@ TEST(MytestCategory4,MyTest21)
     	EXPECT_EQ(6,result);
 }
 
-TEST(MytestCategory4,MyTest22)
+TEST(RemoveNumbers,SpecialChar1)
 {
 	char *s="test9ing&%3";
 	int result;
@@ -205,7 +196,7 @@ TEST(MytestCategory4,MyTest22)
     	EXPECT_EQ(8,result);
 }
 
-TEST(MytestCategory4,MyTest23)
+TEST(RemoveNumbers,SpecialChar2)
 {
 	char *s="#(&&¤)(//";
 	int result;
@@ -214,7 +205,7 @@ TEST(MytestCategory4,MyTest23)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory4,MyTest24)
+TEST(RemoveNumbers,EmptyString)
 {
 	char *s="";
 	int result;
@@ -223,7 +214,7 @@ TEST(MytestCategory4,MyTest24)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory4,MyTest25)
+TEST(RemoveNumbers,NullString)
 {
 	char *s=NULL;
 	int result;
@@ -233,7 +224,7 @@ TEST(MytestCategory4,MyTest25)
 }
 
 /*copy string content*/
-TEST(MytestCategory9,MyTest26)
+TEST(CopyString,Normal1)
 {
 	char *s="TESTING";
 	char s2=(char)malloc(sizeof(char*)*100);
@@ -242,7 +233,7 @@ TEST(MytestCategory9,MyTest26)
     	EXPECT_STREQ(s,s2);
 }
 
-TEST(MytestCategory10,MyTest27)
+TEST(CopyString,SpecialCase)
 {
 	char *s="testt2847¤%&/";
 	char s2=(char)malloc(sizeof(char*)*100);
@@ -251,7 +242,7 @@ TEST(MytestCategory10,MyTest27)
     	EXPECT_STREQ(s,s2);
 }
 
-TEST(MytestCategory10,MyTest28)
+TEST(CopyString,NotDefined)
 {
 	char *s;
 	char s2=(char)malloc(sizeof(char*)*100);
@@ -260,7 +251,7 @@ TEST(MytestCategory10,MyTest28)
     EXPECT_STREQ(s,s2);
 }
 
-TEST(MytestCategory10,MyTest29)
+TEST(CopyString,EmptyString)
 {
 	char *s="";
 	char s2=(char)malloc(sizeof(char*)*100);
@@ -269,7 +260,7 @@ TEST(MytestCategory10,MyTest29)
     	EXPECT_STREQ(s,s2);
 }
 
-TEST(MytestCategory10,MyTest30)
+TEST(CopyString,NullString)
 {
 	char *s=NULL;
 	char s2=(char)malloc(sizeof(char*)*100);
@@ -281,7 +272,7 @@ TEST(MytestCategory10,MyTest30)
 
 /*compare two strings together*/
 
-TEST(MytestCategory11,MyTest31)
+TEST(CompareString,DiffString)
 {
 	char *s="hello world";
 	char *s2="perkele";
@@ -291,7 +282,7 @@ TEST(MytestCategory11,MyTest31)
     	EXPECT_EQ(-1,result);
 }
 
-TEST(MytestCategory12,MyTest32)
+TEST(CompareString,SameString)
 {
 	char *s="helloworld";
 	char *s2="helloworld";
@@ -301,7 +292,7 @@ TEST(MytestCategory12,MyTest32)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory12,MyTest33)
+TEST(CompareString,SpecialChar)
 {
 	char *s="hellow0rld#";
 	char *s2="hellow0rld#";
@@ -311,7 +302,7 @@ TEST(MytestCategory12,MyTest33)
     	EXPECT_EQ(0,result);
 }
 
-TEST(MytestCategory12,MyTest34)
+TEST(CompareString,EmptyString)
 {
 	char *s="helloworld";
 	char *s2="";
@@ -321,7 +312,7 @@ TEST(MytestCategory12,MyTest34)
     	EXPECT_EQ(-1,result);
 }
 
-TEST(MytestCategory12,MyTest35)
+TEST(CompareString,NullString)
 {
 	char *s="helloworld";
 	char *s2=NULL;
@@ -333,28 +324,28 @@ TEST(MytestCategory12,MyTest35)
 
 /*return duplication of a string*/
 
-TEST(MytestCategory13,MyTest36)
+TEST(StringDuplicate,MyTest36)
 {
 	char *s="hello world";
 	char *result =strdupl(s);
     	EXPECT_STREQ(s,result);
 }
 
-TEST(MytestCategory14,MyTest14)
+TEST(StringDuplicate,MyTest14)
 {
 	char *s="h3ll0 w0rld#";
 	char *result=strdupl(s);
     	EXPECT_STREQ(s,result);
 }
 
-TEST(MytestCategory14,MyTest37)
+TEST(StringDuplicate,MyTest37)
 {
 	char *s="";
 	char *result=strdupl(s);
     	EXPECT_STREQ(s,result);
 }
 
-TEST(MytestCategory14,MyTest38)
+TEST(StringDuplicate,MyTest38)
 {
 	char *s ="Halo";
 	char *result = "Halo";
@@ -363,7 +354,7 @@ TEST(MytestCategory14,MyTest38)
     	EXPECT_STREQ(s,result);
 }
 
-TEST(MytestCategory14,MyTest39)
+TEST(StringDuplicate,MyTest39)
 {
 	char *s=NULL;
 	char *result=strdupl(s);
