@@ -56,7 +56,7 @@ int get_buffer_state(struct buffer_type *b, error_type *err){
 int add_char_to_buffer(struct buffer_type *b, unsigned char c, error_type *err){
 	*err = OK;
 	int num = get_buffer_state(b, err);
-	/*check buffer state*/
+	//check buffer state
 	if(*err==POINTER_ERROR || *err == BUFFER_OVER_FLOW || *err == BUFFER_FULL){
 		return -1;
 	}else{
@@ -87,12 +87,76 @@ char get_char_from_buffer(struct buffer_type *b, error_type *err){
 	return c;
 }
 
+/*list character from buffer*/
+int print_buffer(struct buffer_type b, error_type *err){
+	int len = 0;
+	unsigned char *letter = b.tail;
+	if(*err!=2 && *err!=3){
+		printf("%c", letter);
+		while(b.tail != b.head){
+			if(b.tail < b.end){
+				b.tail++;
+			}else{
+				b.tail = b.beginning;
+			}
+			len++;
+		}
+	}else{
+		len=-1;
+	}
+	return len;
+}
+
 /*Additional function*/
 /*add character to function*/
 int add_string_to_buffer(struct buffer_type *b, unsigned char *s, error_type *err){
+	int slen=0,i=0;
+	int buflen = get_buffer_state(b, err);
+	while(*(s+i)!='\0'){
+		slen++;
+	}
 
+	/*indicates free length in buffer*/
+	//int fbuflen = buflen - slen;
+	if(*err==POINTER_ERROR || *err == BUFFER_OVER_FLOW || *err == BUFFER_FULL){
+		return -1;
+	}else{
+		while (b->head!=b->tail-1){
+			for(int j=1; j<slen;j++){
+				if(b->head < b->end){
+					*(b->head) = *(s+j);
+				      	b->head++;
+				}else if(b->head = b->end){
+					*(b->head)=*(s+j);
+					b->head = b->beginning;
+				}else{
+					break;
+				}
+				buflen++;
+			}
+		}
+	}
+	return buflen;	
 }
-/*list characters from buffer*/
+/*get number of characters to be read from buffer*/
 int get_string_from_buffer(struct buffer_type *b, unsigned char *dest, int len, error_type *err){
-
+	int count = 0;
+	int buflen = add_string_to_buffer(b,dest,err);
+	if(len>buflen){
+		return -1;
+	}else{
+		if(*err==POINTER_ERROR || *err == BUFFER_OVER_FLOW || *err == BUFFER_FULL){
+			return -1;
+		}else{
+                	while((b->head!=b->tail) && (count<len)){
+				if(b->tail<b->head){
+					b->tail++;
+					count++;
+				}else{
+					b->tail = b->beginning;
+				}
+			}
+		}
+	}
+	return count;
 }
