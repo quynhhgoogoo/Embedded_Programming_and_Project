@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 1024
 #define BUFFER_OK 1
 #define ERROR -1
 
