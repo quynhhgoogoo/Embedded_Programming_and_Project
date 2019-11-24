@@ -16,7 +16,7 @@ int display_item(linked_list *ll);
 int display_list(linked_list *ll);
 
 /*search for data *s from a list*/
-linked_list *search_from_list(linked_list, char *s);
+linked_list *search_from_list(linked_list *ll, char *s);
 
 /*delete item from a list and free space*/
 int delete_from_list(linked_list *ll, int index);

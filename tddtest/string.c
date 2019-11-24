@@ -38,16 +38,16 @@ int str2lower(char *s){
 }
 
 /*remove occurence number and return new string length*/
-int str_strip_numbers( char *s){
-        int j=0,k;
-        for(int i=0; s[i]; i++){
-                        if(s[i] <= '0' || s[i] >= '9'){
-                                s[j] = s[i];
-                                j++;
-                        }
-        }
-        s[j]='\0';
-        return j;
+int str_strip_numbers(char *s){
+	int i = 0, count =0;
+	int len = my_strlen(s);
+	while(*(s+i)!='\0'){
+		if(*(s+i)>0||*(s+i)<9){
+			count++;
+		}
+		i++;
+	}
+	return count;
 }
 
 /*copy two strings together*/
@@ -91,5 +91,4 @@ char *strdupl(char *s){
 
 	return d;
 }
-
 

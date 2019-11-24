@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "linked_list.h"
+#include "linkedlist.h"
 
 /***************************************************************************/
 TEST(addtest,normal) {
@@ -190,7 +190,7 @@ TEST(search,not_found)
 }
 
 /***************************************************************************/
-TEST(sort,normal)
+/*TEST(sort,normal)
 {
     char str[15]="List Start";
     char str1[10]="zero";
@@ -245,8 +245,9 @@ TEST(delete,normal)
     i=add_to_list(head,str5);
     i=add_to_list(head,str6);
 
-    delete_from_list(head,2);
+    int len = delete_from_list(head,2);
 
+	EXPECT_EQ(5,len);
 }
 
 /***************************************************************************/
@@ -285,7 +286,7 @@ TEST(delete,multi) {
 }
 
 /***************************************************************************/
-TEST(empty,normal) {
+/*TEST(empty,normal) {
     char str[15]="List Start";
     char str1[10]="zero";
     char str2[10]="first";
@@ -308,4 +309,4 @@ TEST(empty,normal) {
     i=add_to_list(head,str5);
     i=add_to_list(head,str6);
     empty_list(head);
-}
+}*/

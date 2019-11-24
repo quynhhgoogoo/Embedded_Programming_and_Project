@@ -173,7 +173,7 @@ TEST(LowerCase,NullString)
 	char *s=NULL;
 	int result;
 
-	result=str_str2lower(s);
+	result=str2lower(s);
     	EXPECT_EQ(-1,result);
 }
 
@@ -227,7 +227,7 @@ TEST(RemoveNumbers,NullString)
 TEST(CopyString,Normal1)
 {
 	char *s="TESTING";
-	char s2=(char)malloc(sizeof(char*)*100);
+	char *s2=(char*)malloc(sizeof(char*)*100);
 
 	mystrcpy(s,s2);
     	EXPECT_STREQ(s,s2);
@@ -236,7 +236,7 @@ TEST(CopyString,Normal1)
 TEST(CopyString,SpecialCase)
 {
 	char *s="testt2847¤%&/";
-	char s2=(char)malloc(sizeof(char*)*100);
+	char *s2=(char*)malloc(sizeof(char*)*100);
 
 	mystrcpy(s,s2);
     	EXPECT_STREQ(s,s2);
@@ -245,7 +245,7 @@ TEST(CopyString,SpecialCase)
 TEST(CopyString,NotDefined)
 {
 	char *s;
-	char s2=(char)malloc(sizeof(char*)*100);
+	char *s2=(char*)malloc(sizeof(char*)*100);
 
 	mystrcpy(s,s2);
     EXPECT_STREQ(s,s2);
@@ -254,7 +254,7 @@ TEST(CopyString,NotDefined)
 TEST(CopyString,EmptyString)
 {
 	char *s="";
-	char s2=(char)malloc(sizeof(char*)*100);
+	char *s2=(char*)malloc(sizeof(char*)*100);
 
 	mystrcpy(s,s2);
     	EXPECT_STREQ(s,s2);
@@ -263,7 +263,7 @@ TEST(CopyString,EmptyString)
 TEST(CopyString,NullString)
 {
 	char *s=NULL;
-	char s2=(char)malloc(sizeof(char*)*100);
+	char *s2=(char*)malloc(sizeof(char*)*100);
 
 	mystrcpy(s,s2);
     	EXPECT_STREQ(NULL,s2);
@@ -350,7 +350,7 @@ TEST(StringDuplicate,MyTest38)
 	char *s ="Halo";
 	char *result = "Halo";
 	
-	*result = strdupl(s);
+	result = strdupl(s);
     	EXPECT_STREQ(s,result);
 }
 
