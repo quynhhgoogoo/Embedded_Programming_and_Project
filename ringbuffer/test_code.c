@@ -19,12 +19,9 @@ TEST(Init_Buffer,Normal)
 TEST(Init_Buffer, Full_Buffer)
 {
 		unsigned char received_buffer[BUFFER_SIZE];
-    	
 		struct buffer_type rb;
 		rb.head == rb.end;
-		
     	init_buffer(&rb,received_buffer,BUFFER_SIZE);
-
     	EXPECT_EQ(rb.head,received_buffer);
     	EXPECT_EQ(rb.tail,received_buffer);
     	EXPECT_EQ(rb.beginning,received_buffer);
@@ -35,12 +32,9 @@ TEST(Init_Buffer, Duplicated_String)
 {
 		unsigned char received_buffer1[BUFFER_SIZE];
 		unsigned char received_buffer2[BUFFER_SIZE];
-    	
 		struct buffer_type rb;
-
     	init_buffer(&rb,received_buffer1,BUFFER_SIZE);
 		init_buffer(&rb,received_buffer2,BUFFER_SIZE);
-
     	EXPECT_EQ(rb.head, received_buffer2);
     	EXPECT_EQ(rb.tail, received_buffer2);
     	EXPECT_EQ(rb.beginning, received_buffer2);
@@ -52,10 +46,8 @@ TEST(Empty_Buffer,Normal)
 {
 	unsigned char received_buffer[BUFFER_SIZE];
 	struct buffer_type rb;
-
 	init_buffer(&rb,received_buffer,BUFFER_SIZE);
 	empty_buffer(&rb);
-
     EXPECT_EQ(rb.head,received_buffer);
     EXPECT_EQ(rb.tail,received_buffer);
     EXPECT_EQ(rb.beginning,received_buffer);
@@ -66,19 +58,14 @@ TEST(Empty_Buffer,Buffer_Full)
 {
 	unsigned char received_buffer[BUFFER_SIZE];
 	int i,j;
-	
 	struct buffer_type rb1;
 	struct buffer_type rb2;
-
 	init_buffer(&rb1,received_buffer,BUFFER_SIZE);
-	
 	rb2.tail = rb1.tail;
 	rb2.head = rb1.head;
 	rb2.end = rb1.end;
 	rb2.beginning = rb1.beginning;
-	
 	empty_buffer(&rb1);
-
     EXPECT_EQ(rb1.head,rb2.head);
     EXPECT_EQ(rb1.tail,rb2.tail);
     EXPECT_EQ(rb1.beginning,rb2.beginning);
@@ -96,7 +83,6 @@ TEST(Get_Buffer_State,Normal)
 	rb.beginning = received_buffer;
 	rb.end = received_buffer + BUFFER_SIZE -1;
 	int len = get_buffer_state(&rb,&err);
-
 	EXPECT_EQ(2,len);
 	EXPECT_EQ(err,OK);
 }
@@ -106,13 +92,11 @@ TEST(Get_Buffer_State,Empty_Buffer)
         unsigned char received_buffer[BUFFER_SIZE];
         struct buffer_type rb;
         error_type err;
-
         rb.head = received_buffer;
         rb.tail = received_buffer;
         rb.beginning = received_buffer;
         rb.end = received_buffer+BUFFER_SIZE-1;
         int len = get_buffer_state(&rb,&err);
-
         EXPECT_EQ(0,len);
         EXPECT_EQ(err,EMPTY_BUFFER);
 }
@@ -122,7 +106,6 @@ TEST(Get_Buffer_State,Buffer_Full)
     unsigned char received_buffer[BUFFER_SIZE];
     struct buffer_type rb;
     error_type err;
-
 	rb.head = received_buffer + BUFFER_SIZE - 2;
 	rb.tail = received_buffer + BUFFER_SIZE - 1;
 	rb.beginning = received_buffer;
@@ -137,13 +120,11 @@ TEST(Get_Buffer_State,Pointer_error)
     unsigned char received_buffer[BUFFER_SIZE];
     struct buffer_type rb;
     error_type err;
-
     rb.head = received_buffer + BUFFER_SIZE + 1;
     rb.tail = received_buffer;
 	rb.beginning = received_buffer;
     rb.end = received_buffer+BUFFER_SIZE-1;
     int len = get_buffer_state(&rb,&err);
-
     EXPECT_EQ(-1,len);
     EXPECT_EQ(err, POINTER_ERROR);
 }
@@ -155,12 +136,10 @@ TEST(Add_Char_To_Buffer,Normal)
         unsigned char received_buffer[BUFFER_SIZE];
         struct buffer_type rb;
         error_type err;
-
 		rb.head = received_buffer + BUFFER_SIZE-2;
         rb.tail = received_buffer;
         rb.beginning = received_buffer;
         rb.end = received_buffer+BUFFER_SIZE-1;
-
 		received_buffer[0] = 'a';
 		int len = add_char_to_buffer(&rb,letter,&err);
 		EXPECT_EQ(BUFFER_SIZE-1,len);
@@ -174,7 +153,6 @@ TEST(Add_Char_To_Buffer,Buffer_Full)
         unsigned char received_buffer[BUFFER_SIZE];
         struct buffer_type rb;
         error_type err;
-
         rb.head = received_buffer + BUFFER_SIZE - 2;
         rb.tail = received_buffer + BUFFER_SIZE - 1;
         rb.beginning = received_buffer;
@@ -183,7 +161,7 @@ TEST(Add_Char_To_Buffer,Buffer_Full)
         int len = add_char_to_buffer(&rb,letter,&err);
         EXPECT_EQ(-1,len);
         EXPECT_EQ('\0',received_buffer[BUFFER_SIZE - 2]);
-	EXPECT_EQ(BUFFER_FULL,err);
+		EXPECT_EQ(BUFFER_FULL,err);
 }
 
 TEST(Add_Char_To_Buffer,Pointer_error)
@@ -192,7 +170,6 @@ TEST(Add_Char_To_Buffer,Pointer_error)
     unsigned char received_buffer[BUFFER_SIZE];
     struct buffer_type rb;
     error_type err;
-
     rb.head = received_buffer + BUFFER_SIZE + 1;
     rb.tail = received_buffer;
     rb.beginning = received_buffer;
@@ -217,7 +194,6 @@ TEST(Get_Char_From_Buffer, Normal)
 	rb.end = received_buffer+BUFFER_SIZE-1;
     received_buffer[0] = 'a';
 	state = get_char_from_buffer(&rb, &err);
-
 	EXPECT_EQ('a',state);
 	EXPECT_EQ(OK,err);
 }
@@ -234,7 +210,6 @@ TEST(Get_Char_From_Buffer, Empty_Buffer)
         rb.end = received_buffer+BUFFER_SIZE-1;
         received_buffer[0] = 'a';
         state = get_char_from_buffer(&rb, &err);
-
         EXPECT_EQ((unsigned char)-1,state);
         EXPECT_EQ(EMPTY_BUFFER,err);
 }
@@ -251,9 +226,23 @@ TEST(Get_Char_From_Buffer, Pointer_error)
         rb.end = received_buffer+BUFFER_SIZE-1;
         received_buffer[0] = 'a';
 		state = get_char_from_buffer(&rb, &err);
-
         EXPECT_EQ((unsigned char)-1,state);
         EXPECT_EQ(POINTER_ERROR,err);
+}
+
+TEST(Get_Char_From_Buffer, Buffer_Full)
+{
+    unsigned char received_buffer[BUFFER_SIZE];
+	struct buffer_type rb;
+	error_type err;
+	unsigned char state;
+	rb.tail = rb.head = received_buffer + 1000;
+	rb.beginning = received_buffer;
+	rb.end = received_buffer+BUFFER_SIZE-1;
+    received_buffer[0] = 'a';
+	state = get_char_from_buffer(&rb, &err);
+	EXPECT_EQ((unsigned char)-1,state);
+	EXPECT_EQ(EMPTY_BUFFER,err);
 }
 
 /*Print Buffer Test Case*/
@@ -303,90 +292,18 @@ TEST(PrintBuffer, ErrorInput)
 	EXPECT_EQ(POINTER_ERROR, err);
 }
 
-/*Add string to buffer*/
-TEST(AddSTringToBuffer, Normal)
+TEST(PrintBuffer, Buffer_Full)
 {
 	unsigned char received_buffer[BUFFER_SIZE];
-	struct buffer_type b;
+	struct buffer_type rb;
+    error_type err = OK;
 	int amount = 0;
-	unsigned char c[] = "Halohalo2";
-	b.head = received_buffer + BUFFER_SIZE-2;
-	b.tail = received_buffer;
-	b.end = received_buffer + BUFFER_SIZE -1;
-	b.beginning = received_buffer;
-	error_type err = OK;
-	for(int i = 0; i < BUFFER_SIZE; i++)
-    {
-        received_buffer[i] = 0;
-    }
-	amount = add_string_to_buffer(&b,c,&err);
-	EXPECT_EQ(9,amount);
-	EXPECT_EQ(b.head,received_buffer+9);
-	EXPECT_EQ(b.tail,received_buffer);
-	EXPECT_EQ(received_buffer[0],'H');
-	EXPECT_EQ(received_buffer[1],'a');
-	EXPECT_EQ(received_buffer[2],'l');
-	EXPECT_EQ(received_buffer[3],'o');
-	EXPECT_EQ(received_buffer[4],'h');
-	EXPECT_EQ(received_buffer[5],'a');
-	EXPECT_EQ(received_buffer[6],'l');
-	EXPECT_EQ(received_buffer[7],'o');
-	EXPECT_EQ(received_buffer[8],'2');
-	EXPECT_EQ(received_buffer[9], 0);
-}
-
-TEST(AddSTringToBuffer, BufferOverFlow)
-{
-	unsigned char received_buffer[BUFFER_SIZE];
-	struct buffer_type b;
-	int amount = 0;
-	unsigned char c[] = "Halohalo2";
-	b.end = received_buffer + BUFFER_SIZE -1;
-	b.beginning = received_buffer;
-	b.tail = received_buffer+4;
-	b.head = received_buffer;
-	error_type err = OK;
-	int k = 0;
-    for(int i = 0; i < BUFFER_SIZE; i++)
-    {
-        received_buffer[i] = 'a'+ k;
-        k++;
-        if (k > 25) k = 0;
-    }
-	amount = add_string_to_buffer(&b,c,&err);
-	EXPECT_EQ(-1,amount);
-	EXPECT_EQ(b.head,received_buffer);
-	EXPECT_EQ(b.tail,received_buffer+4);
-	EXPECT_EQ(received_buffer[0],'a');
-	EXPECT_EQ(received_buffer[1],'b');
-	EXPECT_EQ(received_buffer[2],'c');
-	EXPECT_EQ(received_buffer[3],'d');
-}
-
-TEST(AddSTringToBuffer, ErrorInput)
-{
-	unsigned char received_buffer[BUFFER_SIZE];
-	struct buffer_type b;
-	int amount = 0;
-	unsigned char c[] = "Halohalo2";
-	b.end = received_buffer + BUFFER_SIZE -1;
-	b.beginning = received_buffer;
-	b.tail = received_buffer+4;
-	b.head = received_buffer;
-	error_type err = BUFFER_OVER_FLOW;
-	int k = 0;
-    for(int i = 0; i < BUFFER_SIZE; i++)
-    {
-        received_buffer[i] = 'a'+ k;
-        k++;
-        if (k > 25) k = 0;
-    }
-	amount = add_string_to_buffer(&b,c,&err);
-	EXPECT_EQ(-1,amount);
-	EXPECT_EQ(b.head,received_buffer);
-	EXPECT_EQ(b.tail,received_buffer+4);
-	EXPECT_EQ(received_buffer[0],'a');
-	EXPECT_EQ(received_buffer[1],'b');
-	EXPECT_EQ(received_buffer[2],'c');
-	EXPECT_EQ(received_buffer[3],'d');
+	rb.head = received_buffer + BUFFER_SIZE-2;
+	rb.tail = received_buffer;
+	rb.end = received_buffer + BUFFER_SIZE -1;
+	rb.beginning = received_buffer;
+    received_buffer[0] = 'a';
+	amount = print_buffer(rb, &err);
+	EXPECT_EQ(rb.tail, rb.beginning);
+	EXPECT_EQ(BUFFER_SIZE-2, amount);
 }

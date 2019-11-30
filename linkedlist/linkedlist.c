@@ -12,30 +12,33 @@ int add_to_list(linked_list *ll, char *s){
 	linked_list *temp = ll;
 	linked_list*last = NULL;
 	
-	int index = temp->index;
+	int index = 0;
 	
 	/*check if pointer is null*/
-	if(s == NULL || ll == NULL){
+	if(ll == NULL || s == NULL){
 		return -1;
 	}
 	else{
 		/*Find out last node*/
-		while(temp->next){
+		while(temp->next!=NULL){
 			temp = temp->next;
 			index = temp->index;
 		}
 		
 		/*create a new element*/
 		linked_list *new_node = (linked_list*) malloc(sizeof(linked_list));
-		
+		if(new_node == NULL){
+			return -1;
+		}
 		new_node -> data = s;
 		new_node -> next = NULL;
 		new_node -> index = index+1;
 
 		/*Point last node's link to new node*/
 		temp->next = new_node;
-		return new_node->index;
+		index = new_node->index;
 	}
+	return index;
 }
 
 /*Displays the required element (pointed by parameter linked_list *ll) in a list
@@ -58,19 +61,21 @@ int display_item(linked_list *ll){
   
 int display_list(linked_list *ll){
 	linked_list*temp=ll;
-	int index = 0;
+	int count = 0;
 	
 	if(ll == NULL){
+		printf("ll=NULL");
 		return -1;
 	}
 	else{
 		while(temp!=NULL){
 			//printf("%s", temp->data);
+			count = temp->index;
 			temp = temp->next;
 		}
-		index +=1;
-		return index;
+		count +=1;
 	}
+	return count;
 }
 /*Search for a data *s from a list
 Return: NULL if not found, pointer to */
@@ -97,23 +102,21 @@ linked_list *search_from_list(linked_list *ll, char *s){
     Return value: -1 on error, length of remaining list*/
 	
 int delete_from_list(linked_list *ll, int index){
-	linked_list*temp = ll;
-	linked_list*prev = NULL;
+	linked_list *temp = ll;
+	linked_list *prev;
 	
 	int max_len = display_list(ll), len;
-	/*if pointer is null and index is not available*/
+	
 	if(ll == NULL || index <0 || index > max_len){
 		return -1;
 	}
 	else{
-		while(temp!=NULL){
 			/*If node holds the key to be deleted*/
 			if(temp->index == index){
 				ll = temp->next;
 				free(temp);
 				len = display_list(ll);
 				return len;
-				break;
 			}
 			/*if node is not holding the key to be deleted*/
 			else{
@@ -121,8 +124,25 @@ int delete_from_list(linked_list *ll, int index){
 				temp = temp->next;
 			}
 		}
-		/*Unlink node from linked list*/
-		prev->next = temp->next;
-		free(temp);
+	/*Unlink the node from linked list*/
+	prev->next=temp->next;	
+	free(temp);
+
+	if(prev == NULL){
+		ll = temp;
 	}
+	else if(prev->next == NULL){
+		return prev->index+1;
+	}
+	else{
+		ll->next;
+	}
+
+	while(temp!=NULL){
+		if(ll->next == NULL)
+			break;
+		ll = ll->next;
+	}
+
+	return ll->index;
 }

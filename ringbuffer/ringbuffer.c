@@ -9,11 +9,6 @@ void init_buffer(struct buffer_type *b, unsigned char *buffer, int buffer_size){
 	b->tail = buffer;
 	b->beginning = buffer;
 	b->end = buffer + BUFFER_SIZE - 1;
-	
-	/*int buffer_size = MAX_BUFFER;
-	for(int i=0; i<BUFFER_SIZE; i++){
-		*(buffer+i)=0;
-	}*/
 }
 
 /*refresh buffer*/
@@ -127,58 +122,4 @@ int print_buffer(struct buffer_type b, error_type *err){
 		len=-1;
 	}
 	return len;
-}
-
-/*Additional function*/
-/*add character to function*/
-int add_string_to_buffer(struct buffer_type *b, unsigned char *s, error_type *err){
-	int slen=0,i=0;
-	int buflen = get_buffer_state(b, err);
-	while(*(s+i)!='\0'){
-		slen++;
-	}
-
-	/*indicates free length in buffer*/
-	//int fbuflen = buflen - slen;
-	if(*err==POINTER_ERROR || *err == BUFFER_OVER_FLOW || *err == BUFFER_FULL){
-		return -1;
-	}else{
-		while (b->head!=b->tail-1){
-			for(int j=1; j<slen;j++){
-				if(b->head < b->end){
-					*(b->head) = *(s+j);
-				      	b->head++;
-				}else if(b->head = b->end){
-					*(b->head)=*(s+j);
-					b->head = b->beginning;
-				}else{
-					break;
-				}
-				buflen++;
-			}
-		}
-	}
-	return buflen;	
-}
-/*get number of characters to be read from buffer*/
-int get_string_from_buffer(struct buffer_type *b, unsigned char *dest, int len, error_type *err){
-	int count = 0;
-	int buflen = add_string_to_buffer(b,dest,err);
-	if(len>buflen){
-		return -1;
-	}else{
-		if(*err==POINTER_ERROR || *err == BUFFER_OVER_FLOW || *err == BUFFER_FULL){
-			return -1;
-		}else{
-              while((b->head!=b->tail) && (count<len)){
-				if(b->tail < b->head){
-					b->tail++;
-					count++;
-				}else{
-					b->tail = b->beginning;
-				}
-			}
-		}
-	}
-	return count;
 }
