@@ -227,7 +227,6 @@ TEST(search,normal)
     EXPECT_STREQ(str2,found->data);
 }
 
-/***************************************************************************/
 TEST(search,not_found)
 {
     char str[15]="List Start";
@@ -376,6 +375,62 @@ TEST(delete, NullPointer) {
     EXPECT_EQ(-1,i);
 
 }
+
+TEST(delete, HeadNode)
+{
+    char str[15]="List Start";
+    char str1[10]="zero";
+    char str2[10]="first";
+    char str3[10]="second";
+    char str4[10]="third";
+    char str5[10]="fourth";
+    char str6[10]="fifth";
+    int i = 0;
+
+    linked_list *head = (struct linked_list*) malloc(sizeof(linked_list));  
+    linked_list *temp = NULL;
+    head->next=NULL;
+    head->data=str;
+    head->index=0;
+
+    add_to_list(head,str1);
+    temp = head->next;
+    add_to_list(head,str2);
+    add_to_list(head,str3);
+    add_to_list(head,str4);
+    add_to_list(head,str5);
+    add_to_list(head,str6);
+    i = delete_from_list(head,0);
+    EXPECT_EQ(i, 7);
+    EXPECT_EQ(temp->index, 1);
+}
+
+TEST(delete, TailNode) 
+{
+    char str[15]="List Start";
+    char str1[10]="zero";
+    char str2[10]="first";
+    char str3[10]="second";
+    char str4[10]="third";
+    char str5[10]="fourth";
+    char str6[10]="fifth";
+    int i = 0;
+    linked_list *head = (struct linked_list*) malloc(sizeof(linked_list));  
+    head->next=NULL;
+    head->data=str;
+    head->index=0;
+
+    add_to_list(head,str1);
+    add_to_list(head,str2);
+    add_to_list(head,str3);
+    add_to_list(head,str4);
+    add_to_list(head,str5);
+    add_to_list(head,str6);
+    i = delete_from_list(head,1);
+    EXPECT_EQ(i, 6);
+    EXPECT_EQ(NULL, head->next->next->next->next->next->next);
+}
+
 
 /***************************************************************************/
 /*TEST(empty,normal) {
